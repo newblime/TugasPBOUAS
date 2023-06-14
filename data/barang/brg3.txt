@@ -1,0 +1,4 @@
+HARGA 10000
+ID 3
+NAMA Permen Karet
+STOK 76

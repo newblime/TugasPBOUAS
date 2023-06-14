@@ -1,0 +1,4 @@
+HARGA 5000
+ID 2
+NAMA Air Minum
+STOK 88
