@@ -1,4 +1,5 @@
 #include "backend.h"
+#include "iostream"
 
 
 pengguna::pengguna(string namapengguna){
@@ -17,7 +18,7 @@ TIPE_PENGGUNA pengguna::TipePengguna(){
 
 member::member(string namapengguna, int poin): pengguna(namapengguna){
     tipe_pengguna = TIPE_PENGGUNA_MEMBER;
-    point = poin; 
+    point = poin;
 }
 
 int member::MemberPoin()
@@ -28,7 +29,6 @@ int member::MemberPoin()
 void member::TambahPoin(int poin)
 {
     point += poin;
-    printf("tambahan poin %d", point);
 }
 
 void member::KurangiPoin(int poin){

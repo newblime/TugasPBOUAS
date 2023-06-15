@@ -101,7 +101,7 @@ class penyimpanan_pengguna{
         user_data(){}
 
         string password;
-        pengguna data_pengguna;
+        pengguna *data_pengguna;
     };
 
     string _folderpath;

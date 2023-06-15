@@ -21,7 +21,6 @@ class frontend{
     void tampilkan_stok(barang &brg);
     void tampilkan_pengguna(pengguna &pengguna);
     void tampilkan_member(member &pengguna);
-    void tampilkan_list(string &title, vector<string> &list);
     void tampilkan_list_barang(vector<barang*> &list);
     void tampilkan_kalimat(string kalimat);
     void tampilkan_error(string kalimat);

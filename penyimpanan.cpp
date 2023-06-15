@@ -59,7 +59,6 @@ void _iterasiFolder(string path, void *obj, void (*callback)(string, void*)){
   dirent *ep;
 
   if(dir != NULL){
-    cout << "dir is not null" << endl;
     while((ep = readdir(dir)) != NULL){
       string _newpath = path;
       _newpath += string("/") + ep->d_name;
@@ -145,6 +144,8 @@ penyimpanan_barang::~penyimpanan_barang(){
     }
 
     ofs.close();
+
+    delete _brg;
   }
 }
 
@@ -205,14 +206,13 @@ penyimpanan_pengguna::penyimpanan_pengguna(string folderpath){
 
             break; case PU_POIN:
               poin = atoi(_value.c_str());
-              cout << "poin " << poin << endl;
           }
         }
       }
 
       penyimpanan_pengguna::user_data *_user = new penyimpanan_pengguna::user_data();
       _user->password = password;
-      _user->data_pengguna = member(username, poin);
+      _user->data_pengguna = new member(username, poin);
 
       kelas->mapping_user[username] = _user;
     }
@@ -221,13 +221,12 @@ penyimpanan_pengguna::penyimpanan_pengguna(string folderpath){
 
 penyimpanan_pengguna::~penyimpanan_pengguna(){
   for(auto pair : mapping_user){
-
     string _filename; _formatstring(_filename, "%s/peng-%s.txt", _folderpath.c_str(), pair.first.c_str());
     ofstream ofs; ofs.open(_filename);
 
-    switch(pair.second->data_pengguna.TipePengguna()){
+    switch(pair.second->data_pengguna->TipePengguna()){
       break; case TIPE_PENGGUNA_PENGGUNA:{
-        pengguna *_p = &pair.second->data_pengguna;
+        pengguna *_p = pair.second->data_pengguna;
 
         for(auto upair : pu_list_key){
           ofs << upair.first << " ";
@@ -244,7 +243,7 @@ penyimpanan_pengguna::~penyimpanan_pengguna(){
       }
 
       break; case TIPE_PENGGUNA_MEMBER:{
-        member *_m = (member*)&pair.second->data_pengguna;
+        member *_m = (member*)pair.second->data_pengguna;
 
         for(auto upair : pu_list_key){
           ofs << upair.first << " ";
@@ -257,13 +256,17 @@ penyimpanan_pengguna::~penyimpanan_pengguna(){
 
             break; case PU_POIN:
               ofs << _m->MemberPoin();
-              cout << "member poin " << _m->MemberPoin() << endl;
           }
 
           ofs << endl;
         }
       }
     }
+
+    ofs.close();
+
+    delete pair.second->data_pengguna;
+    delete pair.second;
   }
 }
 
@@ -271,7 +274,7 @@ member *penyimpanan_pengguna::ambil_data_member(string login, string password){
   auto _iterlogin = mapping_user.find(login);
   if(_iterlogin != mapping_user.end()){
     if(_iterlogin->second->password == password){
-      return (member*)&_iterlogin->second->data_pengguna;
+      return (member*)_iterlogin->second->data_pengguna;
     }
   }
 

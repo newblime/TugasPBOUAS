@@ -25,8 +25,10 @@ frontend::frontend(){
 }
 
 void frontend::tampilkan_menu(pengguna &costumer){
+        // warna kuning
         string _color = "\x1B[48;5;221m";
         if(costumer.TipePengguna() == TIPE_PENGGUNA_MEMBER)
+          // warna hijau
           _color = "\x1B[48;5;113m";
 
         string greeting; _formatstring(
@@ -51,6 +53,7 @@ void frontend::tampilkan_menu(pengguna &costumer){
         cout << "10. Selesai pembelian" << endl;
 }
 void frontend::tampilkan_databarang(barang &brg){
+        // warna kuning
         cout << "\x1B[48;5;113m" << "ID BARANG " << brg.IdBarang() << "\x1B[0m" << endl;
         cout << "NAMA BARANG\t\t" << brg.NamaBarang() << endl;
         cout << "HARGA BARANG\t\t" << brg.HargaBarang() << endl;
@@ -84,8 +87,7 @@ void frontend::tampilkan_total_struk(perhitungan::perhitungan_data _hasilPerhitu
   if(_hasilPerhitungan.apakah_member){
     if(_hasilPerhitungan.penggunaan_poin > 0){
       cout << endl;
-      cout << "Poin digunakan.";
-      cout << "Poin dikurangi: " << _hasilPerhitungan.penggunaan_poin << endl;
+      cout << "Poin telah digunakan, Poin dikurangi: " << _hasilPerhitungan.penggunaan_poin << endl;
       cout << "Harga potongan: " << abs(_hasilPerhitungan.total_harga - _hasilPerhitungan.total_harga_member) << endl;
       cout << "Harga akhir: " << _hasilPerhitungan.total_harga_member << endl;                   
     }
@@ -99,15 +101,6 @@ void frontend::tampilkan_member(member &pengguna){
         cout << "Nama : " << pengguna.NamaPengguna() << endl;
         cout << "Poin : " << pengguna.MemberPoin() << endl;
 }
-void frontend::tampilkan_list(string &title, vector<string> &list){
-        
-        cout << title << endl;
-  for(int i = 0; i < list.size(); i++){
-        
-        cout << list[i] << endl;
-
-  }
-}
 
 void frontend::tampilkan_list_barang(vector<barang*> &list){
   cout << "LIST BARANG" << endl;
@@ -119,9 +112,11 @@ void frontend::tampilkan_list_barang(vector<barang*> &list){
 }
 
 void frontend::tampilkan_error(string error){
+  // warna merah
   cout << "\x1B[38;5;0m";
   cout << "\x1B[48;5;196m";
   cout << error;
+  // reset warna
   cout << "\x1B[0m";
   cout << endl;
 }
@@ -131,7 +126,9 @@ void frontend::tampilkan_kalimat(string kalimat){
 }
 
 void frontend::hapus_display(){
+  // cursor ke home
   printf("\x1B[H");
+  // clear semua line
   printf("\x1B[2J");
 }
 
